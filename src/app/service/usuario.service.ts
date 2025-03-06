@@ -6,7 +6,6 @@ import { catchError, Observable, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class UsuarioService {
-  private url = 'https://649088911e6aa71680cb6c15.mockapi.io/users';
 
   constructor(
     private readonly http: HttpClient
@@ -14,11 +13,36 @@ export class UsuarioService {
 
   //Metodo para obtener todos los usuarios
   getUsuarios(): Observable<any>{
+    const url = 'https://649088911e6aa71680cb6c15.mockapi.io/users';
     const reqHeaders = new HttpHeaders({
         'Content-Type': 'application/json'
     });
 
-    return this.http.get<any>(this.url,{headers:reqHeaders})
+    return this.http.get<any>(url,{headers:reqHeaders})
+    .pipe( //elemento rxjs para el manejo de errores
+        catchError(this.errorHandler)
+    )
+  }
+
+  getUsuariosBySearch(search:string): Observable<any>{
+    const url = `https://649088911e6aa71680cb6c15.mockapi.io/users?search=${search}`;
+    const reqHeaders = new HttpHeaders({
+        'Content-Type': 'application/json'
+    });
+
+    return this.http.get<any>(url,{headers:reqHeaders})
+    .pipe( //elemento rxjs para el manejo de errores
+        catchError(this.errorHandler)
+    )
+  }
+
+  getAvatar(name: string, lastname: string): Observable<any>{
+    const url = `http://ui-avatars.com/api/?name=${name}+${lastname}`;
+    const reqHeaders = new HttpHeaders({
+        'Content-Type': 'application/json'
+    });
+
+    return this.http.get<any>(url,{headers:reqHeaders})
     .pipe( //elemento rxjs para el manejo de errores
         catchError(this.errorHandler)
     )

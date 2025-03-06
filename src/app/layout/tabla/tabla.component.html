@@ -1,1 +1,33 @@
-<p>tabla works!</p>
+<div class="table-container">
+  <!-- Encabezado y Filtro -->
+  <div class="header-container">
+    <h3>Lista de usuarios</h3>
+    <form [formGroup]="formFiltro">
+      <input type="text" formControlName="filtro" placeholder="Buscar usuario..." class="filter-input">
+    </form>
+  </div>
+<!-- Cuerpo de la tabla -->
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre completo</th>
+        <th>Email</th>
+        <th>Nacionalidad</th>
+        <th>Teléfono</th>
+        <th>Fecha creación</th>
+        <th>Website</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- usa de *ngFor para recorrer el arreglo y ademas de la directiva personalizada -->
+      <tr *ngFor="let usuario of usuariosMostrados" appHighlight>
+        <td>{{ usuario.first_name }} {{ usuario.last_name }}</td>
+        <td>{{ usuario.email }}</td>
+        <td> El Salvador </td>
+        <td>{{ usuario.phone | SvsvFormat }}</td>
+        <td>{{ usuario.created_at | date:'dd/MM/yyyy' }}</td>
+        <td><a [href]="usuario.website">{{ usuario.website }}</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

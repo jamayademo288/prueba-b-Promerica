@@ -9,4 +9,6 @@ export interface Usuario {
   website: string
   created_at: string
   updated_at: string
+  flag?: string  //se deja opcional ya que puede o no puede venir en la respuesta
+  nationality?: string //se deja opcional ya que puede o no puede venir en la respuesta
 }
