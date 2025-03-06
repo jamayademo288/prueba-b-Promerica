@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UsuarioService } from 'src/app/service/usuario.service';
 
 @Component({
   selector: 'app-tabla',
@@ -7,16 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TablaComponent implements OnInit { //Se implemente el ciclo de vida de onInit para la inicializacion del component
 
-  constructor(){
+  constructor(
+    private user: UsuarioService,
+  ){
 
   }
 
   ngOnInit(): void {
-
+    this.getListaUsuarios();
   }
 
   getListaUsuarios(){
-
+    this.user.getUsuarios().subscribe( resp => {
+      console.log(resp);
+    });
   }
 
 }
